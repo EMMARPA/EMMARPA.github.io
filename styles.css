@@ -1,0 +1,292 @@
+/* Propiedades personalizadas para una gestión de colores más sencilla */
+:root {
+    --azul-mbappe-oscuro: #0A0A3D; /* Un azul profundo y rico */
+    --azul-mbappe-claro: #4A90E2; /* Un azul más brillante y energético */
+    --dorado-mbappe: #FFD700; /* Dorado, a menudo asociado con campeones */
+    --texto-oscuro: #333333;
+    --texto-claro: #ffffff;
+    --fondo-claro: #f0f2f5; /* Un fondo claro ligeramente más suave */
+    --altura-cabecera: 65px;
+}
+
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: var(--fondo-claro);
+    color: var(--texto-oscuro);
+    line-height: 1.6;
+    text-align: left;
+}
+
+/* Para prevenir el scroll del body cuando el menú móvil está abierto */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* Estilo de la cabecera (header) */
+header {
+    position: sticky; /* CLAVE: Permite que el header se "pegue" al hacer scroll */
+    width: 100%;
+    background: linear-gradient(8deg, var(--azul-mbappe-oscuro) 19.1%, var(--azul-mbappe-claro) 94.27%);
+    color: var(--texto-claro);
+    padding: 0 20px;
+    top: 0; /* NECESARIO: Indica a qué distancia del borde superior de la ventana debe "pegarse" */
+    left: 0;
+    z-index: 1000; /* Asegura que el header esté por encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: var(--altura-cabecera);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* position: relative;  Ya no es estrictamente necesario para los hijos absolutos dentro de este contexto */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    flex-grow: 1;
+    text-align: center;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+/* Estilos para el botón de menú hamburguesa (SIEMPRE VISIBLE) */
+.menu-toggle {
+    display: block;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 1001; /* Mayor que el header para que el botón sea clickeable */
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger-icon {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--texto-claro);
+    margin: 5px 0;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Animación para el ícono de hamburguesa al abrir/cerrar */
+.menu-toggle[aria-expanded="true"] .hamburger-icon:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger-icon:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .hamburger-icon:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Estilos para la lista de navegación (SIEMPRE OCULTA por defecto, se despliega) */
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* CAMBIO CLAVE: De absolute a fixed para que se desplace con el scroll */
+    top: var(--altura-cabecera); /* Se posiciona justo debajo del header */
+    left: 0;
+    width: 100%;
+    background: var(--azul-mbappe-oscuro);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+    z-index: 999; /* DEBE ser menor que el z-index del header pero mayor que el contenido */
+    max-height: calc(100vh - var(--altura-cabecera));
+    overflow-y: auto;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(-100%);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Clase para mostrar la lista de navegación */
+.nav-list.nav-list--open {
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Reglas específicas para los enlaces dentro de .nav-list */
+.nav-list li {
+    margin: 0;
+    text-align: center;
+}
+
+.nav-list li a {
+    color: var(--texto-claro);
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px 20px;
+    display: block;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    border-bottom: none;
+}
+
+.nav-list li a:hover,
+.nav-list li a:focus {
+    color: var(--dorado-mbappe);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenido principal (.content) - El margen superior se mantiene igual */
+.content {
+    /* El margen superior se ajusta para que el contenido no quede debajo del header sticky */
+    margin-top: calc(var(--altura-cabecera) + 30px);
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--texto-claro);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.content section {
+    padding: 20px 0;
+}
+
+.content section:not(:last-child) {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--azul-mbappe-oscuro);
+    border-bottom: 3px solid var(--dorado-mbappe);
+    display: inline-block;
+    padding-bottom: 8px;
+    margin-bottom: 25px;
+    font-size: 1.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Resto de estilos (imagen, tabla, contacto, footer) se mantienen igual */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+figure {
+    margin: 0 auto;
+    max-width: 600px;
+    text-align: center;
+}
+
+figcaption {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+    font-size: 0.9em;
+}
+
+.contenedor-tabla {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-width: 500px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+th {
+    background: var(--azul-mbappe-claro);
+    color: var(--texto-claro);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+tbody tr:hover {
+    background-color: #e9f0f9;
+    transition: background-color 0.3s ease;
+}
+
+#contacto a {
+    color: var(--azul-mbappe-claro);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#contacto a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    background: var(--azul-mbappe-oscuro);
+    color: var(--texto-claro);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+    font-size: 0.9em;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.5em;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .content {
+        margin-top: calc(var(--altura-cabecera) + 15px);
+        padding: 20px 15px;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.2em;
+        padding-left: 50px;
+        padding-right: 50px;
+    }
+
+    .content {
+        margin-top: calc(var(--altura-cabecera) + 5px);
+        padding: 15px 10px;
+    }
+}
